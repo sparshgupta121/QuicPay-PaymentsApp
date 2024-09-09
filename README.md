@@ -1,6 +1,6 @@
 # 🚀 QuicPay - Payment Application
 
-![QuicPay Banner](../QuicPay-PaymentsApp/frontend/src/assets/logo.png)
+![QuicPay Banner](/frontend/src/assets/logo.png)
 
 **Note: Not a Real Money App (Gives you Random Number as Money)**\
 \
