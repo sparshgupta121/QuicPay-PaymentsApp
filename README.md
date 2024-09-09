@@ -1,1 +1,0 @@
-# QuicPay-PaymentsApp
