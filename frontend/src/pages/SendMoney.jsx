@@ -32,7 +32,7 @@ export const SendMoney = () => {
 			if (response.data.message === "Transfer successful") {
 				setPopupMessage("Transaction Successful!");
 			} else {
-				setPopupMessage(response.data.message || "Transaction failed");
+				setPopupMessage(response.data.message);
 			}
 			setShowPopup(true);
 		} catch (error) {

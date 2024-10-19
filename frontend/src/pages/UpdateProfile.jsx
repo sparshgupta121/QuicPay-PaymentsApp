@@ -6,18 +6,23 @@ import { SubHeading } from "../components/SubHeading";
 import { Heading } from "../components/Heading";
 import { useNavigate } from "react-router-dom";
 import { BottomWarning } from "../components/BottomWarning";
-import logo from "../assets/logo.png"
-const apiUrl = import.meta.env.VITE_API_URL;
+import logo from "../assets/logo.png";
 
+const apiUrl = import.meta.env.VITE_API_URL;
 
 export const UpdateProfile = () => {
 	const navigate = useNavigate();
 	const [firstname, setFirstname] = useState("");
 	const [lastname, setLastname] = useState("");
 	const [password, setPassword] = useState("");
+	const [loading, setLoading] = useState(false); // For loading state
+	const [message, setMessage] = useState(""); // For displaying feedback
 
 	const handleUpdate = async () => {
 		try {
+			setLoading(true); // Start loading
+			setMessage(""); // Clear previous message
+
 			const updateData = {};
 			if (firstname) updateData.firstname = firstname;
 			if (lastname) updateData.lastname = lastname;
@@ -29,20 +34,23 @@ export const UpdateProfile = () => {
 				},
 			});
 
-			alert(response.data.message);
+			setMessage(response.data.message); // Set success message
 
-			navigate("/dashboard");
+			setTimeout(() => {
+				navigate("/dashboard"); // Redirect after a delay
+			}, 2000);
 		} catch (error) {
-			alert("Error updating profile. Please try again later.");
+			setMessage("Error updating profile. Please try again later.");
 			console.error("Update error:", error);
+		} finally {
+			setLoading(false); // Stop loading
 		}
 	};
 
 	return (
 		<div className='bg-gradient-to-r from-blue-200 to-green-200 h-screen flex items-center justify-center'>
 			<div className='flex flex-col items-center bg-white rounded-lg shadow-lg px-4 py-3 max-w-xs sm:max-w-sm w-full'>
-
-            <div className='flex justify-center'>
+				<div className='flex justify-center'>
 					<img
 						src={logo}
 						alt='App Logo'
@@ -67,14 +75,23 @@ export const UpdateProfile = () => {
 					<InputBox
 						label='Password'
 						type='password'
-						placeholder='Password Must Between 6-15 Characters'
+						placeholder='Password Must Be Between 6-15 Characters'
 						onChange={(e) => setPassword(e.target.value)}
 					/>
+
 					<Button
 						onClick={handleUpdate}
-						label={"Update Profile"}
+						label={loading ? "Updating..." : "Update Profile"} // Change label when loading
+						disabled={loading} // Disable button while loading
 					/>
 				</div>
+
+				{message && (
+					<div className={`mt-3 text-center ${message.includes("Error") ? "text-red-500" : "text-green-500"}`}>
+						<p>{message}</p>
+					</div>
+				)}
+
 				<BottomWarning
 					label={"Need More Help?"}
 					buttonText={"Contact"}
