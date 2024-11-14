@@ -34,7 +34,7 @@ export const ContactPage = () => {
 							<strong>Email:</strong> contact@quicpay.com
 						</p>
 						<p className='mt-1 text-sm text-gray-600'>
-							<strong>Phone:</strong> +91 9876543210
+							<strong>Phone:</strong> +91-9876543210
 						</p>
 						<p className='mt-1 text-sm text-gray-600'>
 							<strong>Address:</strong> 123 Payment St, Suite 100, Payment City, PA 12345
